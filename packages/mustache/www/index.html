@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>模板工具mustache手写源码</title>
+    <title>mustache source code</title>
 </head>
 
 <body>
-    <h1>模板工具mustache手写源码</h1>
+    <h1>mustache source code</h1>
     <div id="app"></div>
     <script src="./guoqq/bundle.js"></script>
     <script>
@@ -17,9 +17,9 @@
                 <ol>
                     {{#students}}
                     <li>
-                        姓名：{{name}},&nbsp;&nbsp;年龄是：{{age}}
+                        name：{{name}},&nbsp;&nbsp;age：{{age}}
                         <br>
-                        爱好是：
+                        hobbies：
                         <ul>
                             {{#hobbies}}
                             <li>{{.}}</li>
@@ -31,7 +31,7 @@
                             <li>name:{{name}}&nbsp;&nbsp;title: {{title}}</li>
                             {{/car}}
                         </ul>  
-                        喜欢的书是： {{book}}
+                        books： {{book}}
                     </li>
                     {{/students}}
                 </ol>

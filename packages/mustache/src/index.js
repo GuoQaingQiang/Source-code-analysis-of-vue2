@@ -6,14 +6,12 @@ getChildren();
 
 window.TemplateEngine = {
     render(templateStr, data) {
-        // 处理模板字符串成为tokens数组
+        // templateStr to tokens
         var tokens = templateToTokens(templateStr);
-        // console.log(tokens);
 
-        // 处理tokens数组成为dom字符串
+        // tokens to domstr
         var domStr = tokensToDomstr(tokens, data);
         
-
         document.getElementById("app").innerHTML = domStr;
     }
 };

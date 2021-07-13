@@ -1,9 +1,7 @@
 // 将一维tokens折叠嵌套成为多维数组
 export default function nestTokens(tokens) {
     var result = loop(tokens) ;
-   
 
-    console.log(result);
     return result;
 }
 

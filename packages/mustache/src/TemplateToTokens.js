@@ -25,6 +25,6 @@ export default function TemplateToTokens(templateStr) {
         scanner.scan("}}");
     }
 
-    // 将一维数组转成多维数组
+    //  one-dimensional array into a multi-dimensional array
     return nestTokens(tokens);
 }
