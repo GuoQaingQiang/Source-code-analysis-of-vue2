@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板工具mustache手写源码</title>
+</head>
+
+<body>
+    <h1>模板工具mustache手写源码</h1>
+    <div id="app"></div>
+    <script src="./guoqq/bundle.js"></script>
+    <script>
+        var templateStr = `<div>
+                <ol>
+                    {{#students}}
+                    <li>
+                        姓名：{{name}},&nbsp;&nbsp;年龄是：{{age}}
+                        <br>
+                        爱好是：
+                        <ul>
+                            {{#hobbies}}
+                            <li>{{.}}</li>
+                            {{/hobbies}}
+                        </ul>
+                        <hr/>  
+                        <ul>
+                            {{#car}}
+                            <li>name:{{name}}&nbsp;&nbsp;title: {{title}}</li>
+                            {{/car}}
+                        </ul>  
+                        喜欢的书是： {{book}}
+                    </li>
+                    {{/students}}
+                </ol>
+            </div>`;
+        var data = {
+            students: [{
+                name: "郭强强",
+                age: 12,
+                hobbies: ['游泳', '骑车', '爬山'],
+                car: [
+                    { name: 'a', title: "a" },
+                    { name: 'b', title: "b" },
+                    { name: 'c', title: "c" },
+                ],
+                book: "aa"
+            } ,
+            {
+                name: "郭强强1",
+                age: 13,
+                hobbies: ['游泳', '骑车', '爬山'],
+                car: [
+                    { name: 'a', title: "a" },
+                    { name: 'b', title: "b" },
+                    { name: 'c', title: "c" },
+                ],
+                book: "cc"
+            }
+        ]};
+
+        TemplateEngine.render(templateStr.replace(/ /g, "").replace(/\n/g, ""), data);
+    </script>
+</body>
+
+</html>
