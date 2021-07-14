@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "clean": "lerna run clean --stream",
-    "start:mustache": "lerna run --include-filtered-dependencies --scope mustache start --parallel"
+    "start:mustache": "lerna run --include-filtered-dependencies --scope mustache start --parallel",
+    "start:snabbdom": "lerna run --include-filtered-dependencies --scope snabbdom start --parallel"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
