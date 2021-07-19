@@ -89,6 +89,14 @@
                 <pre>    }</pre>
                 <pre>}</pre>
             </code>
+
+            <code>
+                <pre>export default function (sel, data, children, text, elm) {</pre>
+                <pre>    return {</pre>
+                <pre>        sel, data, children, text, elm</pre>
+                <pre>    }</pre>
+                <pre>}</pre>
+            </code>
         </div>
     </details>
 
@@ -99,6 +107,30 @@
                 <li>h函数用来生成虚拟dom</li>
                 <li>h函数具有多态性</li>
             </ul>
+            <code>
+                <pre>export default function (sel, data, c) {</pre>
+                <pre>    // 检查参数的个数</pre>
+                <pre>    if (arguments.length !== 3)</pre>
+                <pre>        throw new Error("h函数参数有误（sel, data, c）")</pre>
+        <pre></pre>
+                <pre>    // 检查参数c的类型</pre>
+                <pre>    if (typeof c == "string" || typeof c == "number") {</pre>
+                <pre>        return vnode(sel, data, undefined, c, undefined);</pre>
+                <pre>    } else if (Array.isArray(c)) {</pre>
+                <pre>        let children = [];</pre>
+                <pre>        for (let i = 0; i < children.length; i++) {</pre>
+                <pre>            if (!(typeof c[i] == "object" && c[i].hasOwnProperty('sel')))</pre>
+                <pre>                throw new Error("数组参数中有项不是h函数")</pre>
+                <pre>            children.push(c[i]);</pre>
+                <pre>        }</pre>
+                <pre>        return vnode(sel, data, children, undefined, undefined);</pre>
+                <pre>    } else if (typeof c == "object" && c.hasOwnProperty('sel')) {</pre>
+                <pre>        return vnode(sel, data, [c], undefined, undefined);</pre>
+                <pre>    } else {</pre>
+                <pre>        throw new Error("h函数参数有误（sel, data, c）")</pre>
+                <pre>    }</pre>
+                <pre>}</pre>
+            </code>
         </div>
     </details>
 
@@ -111,6 +143,19 @@
                 <li>只有同一个虚拟节点（选择器相同，key相同），才进行精细化比较</li>
                 <li>只进行同层比较，不会跨层比较</li>
                 <li>虚拟dom变成真实dom，涵盖在diff算法中</li>
+            </ul>
+            <h2> 四种命中查找：</h2>
+            <ol>
+                <li>新前与旧前</li>
+                <li>新后与旧后</li>
+                <li>新后与旧前（涉及移动节点，新前指向的节点，移动到旧后之后）</li>
+                <li>新前与旧后（涉及移动节点，新前指向的节点，移动到旧前之前）</li>
+            </ol>
+            <ul>
+                <ul>
+                    <li>命中一种就不再进行命中判断</li>
+                    <li>如果都没命中，需要使用循环寻找</li>
+                </ul>
             </ul>
         </div>
     </details>
@@ -130,17 +175,18 @@
     <details>
         <summary>Example</summary>
         <div>
-            <div id="app">app container</div>
+            <div id="app">
+                <ul>
+                    <li>app container1</li>
+                    <li>app container2</li>
+                    <li>app container3</li>
+                </ul>
+            </div>
 
             <button id="clickBtn">Click insert dom</button>
         </div>
     </details>
 
-
     <script src="./guoqq/bundle.js"></script>
-    <script>
-
-    </script>
 </body>
-
 </html>
