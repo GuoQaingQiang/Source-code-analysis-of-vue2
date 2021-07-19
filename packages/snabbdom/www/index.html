@@ -6,17 +6,140 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>snabbdom source code</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            font-size: 14px;
+        }
+
+        details {
+            margin-bottom: 10px;
+            padding: 6px;
+            border-radius: 6px;
+            background: #ececec;
+            box-shadow: 0 4px 0 #eeeeee;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        summary {
+            font-size: 16px;
+            padding: 4px 0;
+            font-weight: 500;
+        }
+
+        section:hover {
+            transform: scale(1.01);
+        }
+
+        h1,
+        p {
+            margin: 0;
+        }
+
+        ul {
+            padding: 0 30px;
+            margin: 10px 0;
+        }
+
+        pre {
+            word-wrap: normal;
+            word-break: break-all;
+            white-space: pre;
+            margin: 0;
+            z-index: 0;
+            padding: 4px;
+            line-height: 1;
+            color: #ccc;
+            background: #2d2d2d;
+        }
+
+        #app {
+            min-height: 50px;
+            padding: 10px;
+            margin: 10px 0;
+            background: cornflowerblue;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>vnode function</h1>
-    <h1>h function</h1>
-    <h1>diff function</h1>
-    <h1>patch function</h1>
-    <div id="app"></div>
+    <h1 style="text-align: center;margin-bottom: 10px;">vue source code analysis - snabbdom</h1>
+
+    <details open="open">
+        <summary>vnode function</summary>
+        <div>
+            <p>将dom节点包装成虚拟节点</p>
+            <code>
+                虚拟dom对象结构
+                <pre>{</pre>
+                <pre>    sel: "div",</pre>
+                <pre>    data: {</pre>
+                <pre>        class: {box: true}</pre>
+                <pre>    },</pre>
+                <pre>    elm: domNode,</pre>
+                <pre>    text: "text"</pre>
+                <pre>    children: {</pre>
+                <pre>    }</pre>
+                <pre>}</pre>
+            </code>
+        </div>
+    </details>
+
+    <details>
+        <summary>h function</summary>
+        <div>
+            <ul>
+                <li>h函数用来生成虚拟dom</li>
+                <li>h函数具有多态性</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>diff function</summary>
+        <div>
+            <p>新虚拟dom和老虚拟dom进行diff精细化比较，算出如何最小量更新，最后反映在真正的dom上</p>
+            <ul>
+                <li>最小量更新，key起到很大的作用</li>
+                <li>只有同一个虚拟节点（选择器相同，key相同），才进行精细化比较</li>
+                <li>只进行同层比较，不会跨层比较</li>
+                <li>虚拟dom变成真实dom，涵盖在diff算法中</li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>patch function</summary>
+        <div>
+            <ul>
+                <li>目的：通过diff算法，对比新旧虚拟dom, 以最小量更新的方式将虚拟dom放入真实dom树</li>
+                <li>步骤：<br />
+                    <img src="./patch.png" style="box-shadow: 0 2px 2px 2px  #eeeeee;" width=400 alt="">
+                </li>
+            </ul>
+        </div>
+    </details>
+
+    <details>
+        <summary>Example</summary>
+        <div>
+            <div id="app">app container</div>
+
+            <button id="clickBtn">Click insert dom</button>
+        </div>
+    </details>
+
+
     <script src="./guoqq/bundle.js"></script>
     <script>
-        
+
     </script>
 </body>
 
