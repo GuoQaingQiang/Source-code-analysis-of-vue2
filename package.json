@@ -4,7 +4,8 @@
   "scripts": {
     "clean": "lerna run clean --stream",
     "start:mustache": "lerna run --include-filtered-dependencies --scope mustache start --parallel",
-    "start:snabbdom": "lerna run --include-filtered-dependencies --scope snabbdom start --parallel"
+    "start:snabbdom": "lerna run --include-filtered-dependencies --scope snabbdom start --parallel",
+    "start:define-reactive": "lerna run --include-filtered-dependencies --scope define-reactive start --parallel"
   },
   "devDependencies": {
     "lerna": "^4.0.0"
