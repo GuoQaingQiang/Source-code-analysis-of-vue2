@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>snabbdom source code</title>
+    <title>defineReactive watch computed</title>
     <style>
         html,
         body {
@@ -36,7 +36,7 @@
 
         h1,
         p {
-            margin: 0;
+            margin: 4px;
         }
 
         ul {
@@ -69,6 +69,12 @@
             line-height: 1;
             color: #ccc;
             background: #2d2d2d;
+        }
+
+        .example {
+            padding: 0 10px;
+            background: #ffffff;
+            margin: 13px;
         }
     </style>
 </head>
@@ -158,6 +164,18 @@
                 <pre>    })</pre>
                 <pre>}</pre>
             </code>
+            <div class="example">
+                <h1>example:</h1>
+                <p>使用defineReactive,实现数据监控与发布</p>
+                <input id="inputNode" type="text" placeholder="修改文本框，下方文字也会修改" />
+                <p id="inputText">wait...</p>
+                <input id="inputNodeAM" type="text" placeholder="obj.a.m" />
+                <input id="inputNodeAN" type="text" placeholder="obj.a.m.n" />
+                <input id="inputNodeB" type="text" placeholder="obj.b" />
+                <input id="inputNodeCM" type="text" placeholder="obj.c.m" />
+                <input id="inputNodeCN" type="text" placeholder="obj.c.m.n" />
+                <div id="result">Obj的结果输出区</div>
+            </div>
         </div>
     </details>
 
@@ -171,6 +189,7 @@
                 属性定义并返回对应的结果给这个变量,变量不可被重复定义和赋值。 而 watch 监听 data 中定义的变量变化</li>
         </ul>
     </div>
+    <script src="./guoqq/bundle.js"></script>
 </body>
 
 </html>
