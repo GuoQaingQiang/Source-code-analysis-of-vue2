@@ -12,10 +12,18 @@
             width: 100%;
             height: 100%;
             font-size: 14px;
+        } 
+
+        .detailsWrapper{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
 
         details {
+            width: 49%;
             margin-bottom: 10px;
+            box-sizing: border-box;
             padding: 6px;
             border-radius: 6px;
             background: #ececec;
@@ -84,100 +92,102 @@
     <h2>reference resources: <a href="https://www.jianshu.com/p/d86ae49a5403" target="target"
             rel="noopener noreferrer">https://www.jianshu.com/p/d86ae49a5403</a> </h2>
 
-    <details open="open">
-        <summary>computed</summary>
-        <div>
-            <ul>
-                <li>是计算值</li>
-                <li>应用：简化tempalte里面{{}}计算和处理props或$emit的传值</li>
-                <li>具有缓存性，页面重新渲染时值不变化,计算属性会立即返回之前的计算结果，而不必再次执行函数</li>
-            </ul>
-            <code>
-                <pre>function computed(ctx, obj) {</pre>
-                <pre>    let keys = Object.keys(obj)</pre>
-                <pre>    let dataKeys = Object.keys(ctx.data)</pre>
-                <pre>    dataKeys.forEach(dataKey => {</pre>
-                <pre>        defineReactive(ctx.data, dataKey, ctx.data[dataKey])</pre>
-                <pre>    })</pre>
-                <pre>    let firstComputedObj = keys.reduce((prev, next) => {</pre>
-                <pre>        ctx.data.$target = function () {</pre>
-                <pre>            ctx.setData({ [next]: obj[next].call(ctx) })</pre>
-                <pre>        }</pre>
-                <pre>        prev[next] = obj[next].call(ctx)</pre>
-                <pre>        ctx.data.$target = null</pre>
-                <pre>        return prev</pre>
-                <pre>    }, {})</pre>
-                <pre>    ctx.setData(firstComputedObj)</pre>
-                <pre>}</pre>
-            </code>
-        </div>
-    </details>
-
-    <details>
-        <summary>watch</summary>
-        <div>
-            <ul>
-                <li>是观察的动作</li>
-                <li>应用：监听props，$emit或本组件的值执行异步操作</li>
-                <li>无缓存性，页面重新渲染时值不变化也会执行</li>
-            </ul>
-            <code>
-                <pre>unction watch(ctx, obj) {</pre>
-                <pre>   Object.keys(obj).forEach(key => {</pre>
-                <pre>       defineReactive(ctx.data, key, ctx.data[key], function (value) {</pre>
-                <pre>           obj[key].call(ctx, value)</pre>
-                <pre>       })</pre>
-                <pre>   })</pre>
-                <pre></pre>
-            </code>
-        </div>
-    </details>
-
-    <details>
-        <summary>defineReactive</summary>
-        <div>
-            <code>
-                <pre>function defineReactive(data, key, val, fn) {</pre>
-                <pre>    let subs = [] // 新增</pre>
-                <pre>    Object.defineProperty(data, key, {</pre>
-                <pre>        configurable: true,</pre>
-                <pre>        enumerable: true,</pre>
-                <pre>        get: function () {</pre>
-                <pre>            // 新增</pre>
-                <pre>            if (data.$target) {</pre>
-                <pre>                subs.push(data.$target)</pre>
-                <pre>            }</pre>
-                <pre>            return val</pre>
-                <pre>        },</pre>
-                <pre>        set: function (newVal) {</pre>
-                <pre>            if (newVal === val) return</pre>
-                <pre>            fn && fn(newVal)</pre>
-                <pre>            // 新增</pre>
-                <pre>            if (subs.length) {</pre>
-                <pre>                // 用 setTimeout 因为此时 this.data 还没更新</pre>
-                <pre>                setTimeout(() => {</pre>
-                <pre>                    subs.forEach(sub => sub())</pre>
-                <pre>                }, 0)</pre>
-                <pre>            }</pre>
-                <pre>            val = newVal</pre>
-                <pre>        },</pre>
-                <pre>    })</pre>
-                <pre>}</pre>
-            </code>
-            <div class="example">
-                <h1>example:</h1>
-                <p>使用defineReactive,实现数据监控与发布</p>
-                <input id="inputNode" type="text" placeholder="修改文本框，下方文字也会修改" />
-                <p id="inputText">wait...</p>
-                <input id="inputNodeAM" type="text" placeholder="obj.a.m" />
-                <input id="inputNodeAN" type="text" placeholder="obj.a.m.n" />
-                <input id="inputNodeB" type="text" placeholder="obj.b" />
-                <input id="inputNodeCM" type="text" placeholder="obj.c.m" />
-                <input id="inputNodeCN" type="text" placeholder="obj.c.m.n" />
-                <div id="result">Obj的结果输出区</div>
+    <div class="detailsWrapper">
+        <details open="open">
+            <summary>computed</summary>
+            <div>
+                <ul>
+                    <li>是计算值</li>
+                    <li>应用：简化tempalte里面{{}}计算和处理props或$emit的传值</li>
+                    <li>具有缓存性，页面重新渲染时值不变化,计算属性会立即返回之前的计算结果，而不必再次执行函数</li>
+                </ul>
+                <code>
+                            <pre>function computed(ctx, obj) {</pre>
+                            <pre>    let keys = Object.keys(obj)</pre>
+                            <pre>    let dataKeys = Object.keys(ctx.data)</pre>
+                            <pre>    dataKeys.forEach(dataKey => {</pre>
+                            <pre>        defineReactive(ctx.data, dataKey, ctx.data[dataKey])</pre>
+                            <pre>    })</pre>
+                            <pre>    let firstComputedObj = keys.reduce((prev, next) => {</pre>
+                            <pre>        ctx.data.$target = function () {</pre>
+                            <pre>            ctx.setData({ [next]: obj[next].call(ctx) })</pre>
+                            <pre>        }</pre>
+                            <pre>        prev[next] = obj[next].call(ctx)</pre>
+                            <pre>        ctx.data.$target = null</pre>
+                            <pre>        return prev</pre>
+                            <pre>    }, {})</pre>
+                            <pre>    ctx.setData(firstComputedObj)</pre>
+                            <pre>}</pre>
+                        </code>
             </div>
-        </div>
-    </details>
+        </details>
+
+        <details>
+            <summary>watch</summary>
+            <div>
+                <ul>
+                    <li>是观察的动作</li>
+                    <li>应用：监听props，$emit或本组件的值执行异步操作</li>
+                    <li>无缓存性，页面重新渲染时值不变化也会执行</li>
+                </ul>
+                <code>
+                            <pre>unction watch(ctx, obj) {</pre>
+                            <pre>   Object.keys(obj).forEach(key => {</pre>
+                            <pre>       defineReactive(ctx.data, key, ctx.data[key], function (value) {</pre>
+                            <pre>           obj[key].call(ctx, value)</pre>
+                            <pre>       })</pre>
+                            <pre>   })</pre>
+                            <pre></pre>
+                        </code>
+            </div>
+        </details>
+
+        <details>
+            <summary>defineReactive</summary>
+            <div>
+                <code>
+                            <pre>function defineReactive(data, key, val, fn) {</pre>
+                            <pre>    let subs = [] // 新增</pre>
+                            <pre>    Object.defineProperty(data, key, {</pre>
+                            <pre>        configurable: true,</pre>
+                            <pre>        enumerable: true,</pre>
+                            <pre>        get: function () {</pre>
+                            <pre>            // 新增</pre>
+                            <pre>            if (data.$target) {</pre>
+                            <pre>                subs.push(data.$target)</pre>
+                            <pre>            }</pre>
+                            <pre>            return val</pre>
+                            <pre>        },</pre>
+                            <pre>        set: function (newVal) {</pre>
+                            <pre>            if (newVal === val) return</pre>
+                            <pre>            fn && fn(newVal)</pre>
+                            <pre>            // 新增</pre>
+                            <pre>            if (subs.length) {</pre>
+                            <pre>                // 用 setTimeout 因为此时 this.data 还没更新</pre>
+                            <pre>                setTimeout(() => {</pre>
+                            <pre>                    subs.forEach(sub => sub())</pre>
+                            <pre>                }, 0)</pre>
+                            <pre>            }</pre>
+                            <pre>            val = newVal</pre>
+                            <pre>        },</pre>
+                            <pre>    })</pre>
+                            <pre>}</pre>
+                        </code>
+                <div class="example">
+                    <h1>example:</h1>
+                    <p>使用defineReactive,实现数据监控与发布</p>
+                    <input id="inputNode" type="text" placeholder="修改文本框，下方文字也会修改" />
+                    <p id="inputText">wait...</p>
+                    <input id="inputNodeAM" type="text" placeholder="obj.a.m" />
+                    <input id="inputNodeAN" type="text" placeholder="obj.a.m.n" />
+                    <input id="inputNodeB" type="text" placeholder="obj.b" />
+                    <input id="inputNodeCM" type="text" placeholder="obj.c.m" />
+                    <input id="inputNodeCN" type="text" placeholder="obj.c.m.n" />
+                    <div id="result">Obj的结果输出区</div>
+                </div>
+            </div>
+        </details>
+    </div>
 
     <div>
         <h2>总结</h2>
