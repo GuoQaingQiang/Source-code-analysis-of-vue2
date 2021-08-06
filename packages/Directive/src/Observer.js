@@ -1,3 +1,4 @@
+import { arrayMethods } from "./array";
 import defineReactive from "./defineReactive";
 import Dep from "./Dep";
 import observe from "./observe";
@@ -6,11 +7,11 @@ import { def } from "./utils.js";
 export default class Observer {
     constructor(value, fn) {
         this.dep = new Dep();
-        def(value, "__ob__", this, value);
+        def(value, "__ob__", this, false);
 
         if (Array.isArray(value)) {
+            Object.setPrototypeOf(value, arrayMethods)
             this.observeArray(value);
-            Object.setPrototypeOf(value, arrayMethods);
         } else {
             this.walk(value, fn);
         }

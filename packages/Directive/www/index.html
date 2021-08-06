@@ -10,15 +10,34 @@
 
 <body>
     <h1>Directive and life circle</h1>
-    <div id="app"></div>
+    <div id="app">
+        <p class="test">test</p>
+        <input type="text" v-model='m.n'>
+        <br>
+        input value change: {{m.n}}
+        <ul>
+            <li>A</li>
+            <li>B</li>
+        </ul>
+    </div>
     <script src="./guoqq/bundle.js"></script>
     <script>
-       new Vue({
-           el: "app",
-           data: {
-
-           }
-       })
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                input: 'input',
+                a: 'aaa',
+                m: {
+                    n: 12
+                }           
+            },
+            watch: {
+                a(){
+                    console.log('a change');
+                }
+            }
+        })
+        console.log(vm);
     </script>
 </body>
 
